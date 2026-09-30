@@ -1,0 +1,24 @@
+[profile.default]
+src = "src"
+test = "test"
+out = "out"
+libs = ["lib"]
+solc = "0.8.28"
+evm_version = "cancun"
+optimizer = true
+optimizer_runs = 400
+via_ir = false
+fs_permissions = [{ access = "read-write", path = "./" }]
+
+[fuzz]
+runs = 512
+
+[invariant]
+runs = 64
+depth = 64
+
+# Robinhood Chain, id 4663 (Arbitrum Orbit, ETH gas). The public RPC keeps ~15 min of state:
+# fine for a fork test that starts at the head, too short for a long-lived local fork. For that, point
+# anvil at an archive endpoint of your choice: anvil --fork-url "$ROBINHOOD_ARCHIVE_RPC" --chain-id 46632
+[rpc_endpoints]
+robinhood = "https://rpc.mainnet.chain.robinhood.com"
